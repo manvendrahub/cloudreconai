@@ -25,7 +25,6 @@ export default function Login() {
   return (
     <div className="auth-page">
       <div className="auth-visual">
-        <div className="auth-orb"/>
         <div className="auth-copy">
           <div className="brand">
             <div className="brand-mark"><Satellite/></div>

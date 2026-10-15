@@ -27,6 +27,9 @@ server {\n\
   ssl_ciphers HIGH:!aNULL:!MD5;\n\
   root /usr/share/nginx/html;\n\
   index index.html;\n\
+  gzip on;\n\
+  gzip_types text/plain text/css application/json application/javascript text/xml application/xml image/svg+xml;\n\
+  gzip_min_length 1000;\n\
   # Use Docker internal DNS resolver so Nginx starts cleanly even before backend is ready\n\
   resolver 127.0.0.11 valid=30s ipv6=off;\n\
   set $backend_upstream http://backend:8080;\n\
@@ -38,6 +41,10 @@ server {\n\
     proxy_set_header X-Forwarded-Proto $scheme;\n\
     proxy_read_timeout 300;\n\
     client_max_body_size 512m;\n\
+  }\n\
+  location /assets/ {\n\
+    expires 1y;\n\
+    add_header Cache-Control "public, immutable";\n\
   }\n\
   location / {\n\
     try_files $uri $uri/ /index.html;\n\
