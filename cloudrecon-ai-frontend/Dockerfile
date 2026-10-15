@@ -27,8 +27,11 @@ server {\n\
   ssl_ciphers HIGH:!aNULL:!MD5;\n\
   root /usr/share/nginx/html;\n\
   index index.html;\n\
+  # Use Docker internal DNS resolver so Nginx starts cleanly even before backend is ready\n\
+  resolver 127.0.0.11 valid=30s ipv6=off;\n\
+  set $backend_upstream http://backend:8080;\n\
   location /api/ {\n\
-    proxy_pass http://backend:8080/api/;\n\
+    proxy_pass $backend_upstream;\n\
     proxy_set_header Host $host;\n\
     proxy_set_header X-Real-IP $remote_addr;\n\
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
