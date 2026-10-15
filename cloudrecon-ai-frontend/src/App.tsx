@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Navigate, NavLink, Route, Routes, useNavigate } from 'react-router-dom'
 import {
-  BarChart3, Cloud, Database, FileImage, History, LayoutDashboard,
+  Cloud, Database, FileImage, History, LayoutDashboard,
   LogOut, Menu, Satellite, Settings, Sparkles, UploadCloud, X
 } from 'lucide-react'
 import Landing from './pages/Landing'
@@ -11,6 +11,9 @@ import Upload from './pages/Upload'
 import Analysis from './pages/Analysis'
 import Results from './pages/Results'
 import HistoryPage from './pages/History'
+import { ThemeProvider } from './context/ThemeContext'
+import { ThemeToggle } from './components/ThemeToggle'
+import { BackgroundVideo } from './components/BackgroundVideo'
 import './index.css'
 
 const nav = [
@@ -62,7 +65,10 @@ function Shell() {
         <header className="topbar">
           <button className="icon-btn menu-btn" onClick={()=>setOpen(true)}><Menu/></button>
           <div className="top-search"><Cloud size={16}/><span>Satellite intelligence workspace</span></div>
-          <div className="top-user"><div className="avatar">KS</div><div><b>Kundan Suman</b><small>Researcher</small></div></div>
+          <div className="topbar-right">
+            <ThemeToggle />
+            <div className="top-user"><div className="avatar">KS</div><div><b>Kundan Suman</b><small>Researcher</small></div></div>
+          </div>
         </header>
         <div className="page-content">
           <Routes>
@@ -81,11 +87,14 @@ function Shell() {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing/>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/app/*" element={<Shell/>}/>
-      <Route path="*" element={<Navigate to="/" replace/>}/>
-    </Routes>
+    <ThemeProvider>
+      <BackgroundVideo />
+      <Routes>
+        <Route path="/" element={<Landing/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/app/*" element={<Shell/>}/>
+        <Route path="*" element={<Navigate to="/" replace/>}/>
+      </Routes>
+    </ThemeProvider>
   )
 }

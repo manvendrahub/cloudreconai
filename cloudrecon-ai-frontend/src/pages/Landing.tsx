@@ -1,5 +1,6 @@
 import { ArrowRight, CheckCircle2, CloudOff, Eye, Layers3, Satellite, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { ThemeToggle } from '../components/ThemeToggle'
 
 export default function Landing() {
   return (
@@ -10,7 +11,10 @@ export default function Landing() {
           <div><strong>CloudRecon</strong><span>AI SATELLITE LAB</span></div>
         </div>
         <div className="landing-links">
-          <a href="#technology">Technology</a><a href="#workflow">Workflow</a><a href="#about">About</a>
+          <a href="#technology">Technology</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#about">About</a>
+          <ThemeToggle />
           <Link className="btn btn-outline" to="/login">Sign in</Link>
         </div>
       </header>
